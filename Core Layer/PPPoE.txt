@@ -1,0 +1,489 @@
+
+Current configuration : 10314 bytes
+!
+! Last configuration change at 12:11:19 India Mon Jun 3 2019 by atbnet
+! NVRAM config last updated at 12:11:21 India Mon Jun 3 2019 by atbnet
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no platform punt-keepalive disable-kernel-core
+!
+hostname 4c0082a09d40
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ --More--          exit-address-family
+!
+enable secret 5 $1$BOrW$1XtCiG8f3K3gkykFs20li.
+!
+aaa new-model
+!
+!
+aaa group server radius JAZE-RADIUS
+ server 180.179.56.164 auth-port 1812 acct-port 1813
+ server 180.179.56.165 auth-port 1812 acct-port 1813
+ deadtime 2
+!
+aaa authentication login default local
+aaa authentication login PPPoE_LIST group JAZE-RADIUS
+aaa authentication login AUTHEN_LIST group JAZE-RADIUS
+aaa authentication ppp default local
+aaa authentication ppp PPPoE_LIST group JAZE-RADIUS
+aaa authorization network default group JAZE-RADIUS 
+aaa authorization network PPPoE_LIST group JAZE-RADIUS 
+aaa authorization network AUTHOR_LIST group JAZE-RADIUS 
+aaa authorization subscriber-service default local group JAZE-RADIUS 
+aaa accounting send stop-record always
+aaa accounting delay-start all
+ --More--         aaa accounting update periodic 5
+aaa accounting network default start-stop group JAZE-RADIUS
+aaa accounting network PPPoE_LIST start-stop group JAZE-RADIUS
+aaa accounting network ACCNT_LIST start-stop group JAZE-RADIUS
+aaa accounting network AUTHOR_LIST start-stop group JAZE-RADIUS
+!
+!
+!
+!
+aaa server radius dynamic-author
+ client 180.179.56.164 server-key jazenetworks
+ port 3799
+ auth-type any
+ ignore session-key
+ ignore server-key
+!
+aaa session-id common
+aaa policy interface-config allow-subinterface
+ppp packet throttle 100 10 300
+clock timezone India 5 30
+!
+!
+!
+ --More--         !
+!
+!
+!
+!
+!
+
+
+ip name-server 45.120.250.4
+ip name-server 45.120.250.5
+ip name-server 8.8.8.8
+ip name-server 4.2.2.2
+
+!
+!
+!
+ipv6 multicast rpf use-bgp
+ipv6 multicast vrf Mgmt-intf rpf use-bgp
+!
+!
+!
+!
+!
+ --More--         !
+!
+subscriber service password service
+subscriber service coa-rfc-compliant
+subscriber service multiple-accept
+subscriber service session-accounting
+subscriber service accounting interim-interval 5
+subscriber templating
+subscriber authorization enable
+subscriber accounting ssg
+!
+multilink bundle-name authenticated
+!
+password encryption aes
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ --More--         hw-module subslot 1/3 enable lan
+spanning-tree extend system-id
+!
+username admin password 0 ocsic@123
+username atbnet secret 5 $1$W0aG$nYiNLT6JiVTHclDwAqEN81
+!
+redundancy
+ mode none
+redirect server-group REDIRECT_GROUP
+ server ip 180.179.56.165 port 80
+!
+!
+!
+!
+!
+controller wanphy 1/3/0
+!
+!
+cdp run
+!
+ip ftp username atbb
+ip ftp password atbb123
+ip tftp source-interface GigabitEthernet0
+ --More--         class-map type control match-any PPPoE_CM
+ match service-name PPPoE_SRV 
+!
+policy-map type control PPPoE
+ class type control PPPoE_CM event service-start
+  10 service-policy type service identifier service-name
+ !
+ class type control always event session-start
+  10 authenticate aaa list PPPoE_LIST 
+ !
+!
+!
+policy-map 3M
+ class class-default
+  police rate 3145500 
+policy-map 8M
+ class class-default
+  police rate 8389000 
+policy-map 300M
+ class class-default
+  police rate 317296000 
+policy-map 40M
+ class class-default
+ --More--           police rate 44040000 
+policy-map 32M
+ class class-default
+  police rate 33550000 
+policy-map 70M
+ class class-default
+  police rate 73400000 
+policy-map 2M
+ class class-default
+  police rate 2097000 
+policy-map 35M
+ class class-default
+  police rate 36700000 
+policy-map 85M
+ class class-default
+  police rate 89128500 
+policy-map 512kb
+ class class-default
+  police rate 524000 
+policy-map 75M
+ class class-default
+  police rate 81788500 
+policy-map 25M
+ --More--          class class-default
+  police rate 28311500 
+policy-map 15M
+ class class-default
+  police rate 15728500 
+policy-map 64kb
+ class class-default
+  police rate 8000 
+policy-map 30M
+ class class-default
+  police rate 31457000 
+policy-map 10M
+ class class-default
+  police rate 12582500 
+policy-map 20M
+ class class-default
+  police rate 22914500 
+policy-map 100M
+ class class-default
+  police rate 110100000 
+policy-map 4M
+ class class-default
+  police rate 4194000 
+ --More--         policy-map 50M
+ class class-default
+  police rate 56623000 
+policy-map 1M
+ class class-default
+  police rate 1000000 
+policy-map 60M
+ class class-default
+  police rate 62914500 
+policy-map 128kb
+ class class-default
+  police rate 13000 
+policy-map 6M
+ class class-default
+  police rate 6000000 
+policy-map 150M
+ class class-default
+  police rate 157300000 
+!
+!
+! 
+!
+!
+ --More--         !
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+bba-group pppoe BBA_PPPoE101
+ virtual-template 101
+ sessions per-vlan limit 2000
+!
+bba-group pppoe BBA_PPPoE102
+ virtual-template 102
+ sessions per-vlan limit 2000
+!
+bba-group pppoe BBA_PPPoE103
+ virtual-template 103
+ sessions per-vlan limit 2000
+ --More--         !
+bba-group pppoe BBA_PPPoE105
+ virtual-template 105
+ sessions per-vlan limit 2000
+!
+bba-group pppoe BBA_PPPoE106
+ virtual-template 106
+ sessions per-vlan limit 2000
+!
+!
+interface Loopback101
+ description PPPoE101
+ ip address 10.10.0.1 255.255.240.0
+!
+interface Loopback102
+ description PPPoE102
+ ip address 12.12.12.1 255.255.252.0
+!
+interface Loopback103
+ description PPPoE103
+ ip address 50.50.0.1 255.255.248.0
+!
+interface Loopback105
+ --More--          description PPPoE105
+ ip address 10.11.11.1 255.255.255.0
+!
+interface Loopback106
+ description PPPoE106
+ ip address 10.170.80.1 255.255.255.0
+!
+interface GigabitEthernet1/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/3
+ --More--          no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/4
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/5
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/6
+ ip address 103.104.48.115 255.255.255.128
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/7
+ no ip address
+ shutdown
+ negotiation auto
+ --More--         !
+interface TenGigabitEthernet1/1/0
+ description To NAT Log RTR
+ ip address 103.78.159.170 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0
+ description To CORE SW Te1/49
+ no ip address
+!
+interface TenGigabitEthernet1/3/0.1
+ encapsulation dot1Q 1 native
+ ip address 103.78.159.253 255.255.255.252 secondary
+ ip address 172.16.16.1 255.255.255.0
+!
+interface TenGigabitEthernet1/3/0.100
+ encapsulation dot1Q 100
+ ip address 172.168.1.1 255.255.255.0
+!
+interface TenGigabitEthernet1/3/0.101
+ encapsulation dot1Q 101
+ pppoe enable group BBA_PPPoE101
+!
+interface TenGigabitEthernet1/3/0.102
+ --More--          encapsulation dot1Q 102
+ pppoe enable group BBA_PPPoE102
+!
+interface TenGigabitEthernet1/3/0.103
+ encapsulation dot1Q 103
+ pppoe enable group BBA_PPPoE103
+!
+interface TenGigabitEthernet1/3/0.105
+ encapsulation dot1Q 105
+ pppoe enable group BBA_PPPoE105
+!
+interface TenGigabitEthernet1/3/0.106
+ encapsulation dot1Q 106
+ pppoe enable group BBA_PPPoE106
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface Virtual-Template101
+ ip unnumbered Loopback101
+ --More--          no ip redirects
+ no ip unreachables
+ peer default ip address pool POOL101
+ ppp authentication pap PPPoE_LIST
+ ppp authorization PPPoE_LIST
+ ppp accounting PPPoE_LIST
+ ppp ipcp dns 45.120.250.4 8.8.8.8
+!
+interface Virtual-Template102
+ ip unnumbered Loopback102
+ no ip redirects
+ no ip unreachables
+ peer default ip address pool POOL102
+ ppp authentication pap PPPoE_LIST
+ ppp authorization PPPoE_LIST
+ ppp accounting PPPoE_LIST
+ ppp ipcp dns 45.120.250.4 8.8.8.8
+!
+interface Virtual-Template103
+ ip unnumbered Loopback103
+ no ip redirects
+ no ip unreachables
+ peer default ip address pool POOL103
+ --More--          ppp authentication pap PPPoE_LIST
+ ppp authorization PPPoE_LIST
+ ppp accounting PPPoE_LIST
+ ppp ipcp dns 45.120.250.4 8.8.8.8
+!
+interface Virtual-Template104
+ no ip address
+!
+interface Virtual-Template105
+ ip unnumbered Loopback105
+ no ip redirects
+ no ip unreachables
+ peer default ip address pool POOL105
+ ppp authentication pap PPPoE_LIST
+ ppp authorization PPPoE_LIST
+ ppp accounting PPPoE_LIST
+ ppp ipcp dns 45.120.250.4 8.8.8.8
+!
+interface Virtual-Template106
+ ip unnumbered Loopback106
+ no ip redirects
+ no ip unreachables
+ peer default ip address pool POOL106
+ --More--          ppp authentication pap PPPoE_LIST
+ ppp authorization PPPoE_LIST
+ ppp accounting PPPoE_LIST
+ ppp ipcp dns 45.120.250.4 45.120.250.5
+!
+ip local pool POOL102 12.12.12.51 12.12.14.1
+ip local pool POOL102 12.12.14.51 12.12.15.254
+ip local pool POOL101 10.10.0.2 10.10.5.1
+ip local pool POOL101 10.10.5.51 10.10.10.1
+ip local pool POOL101 10.10.10.51 10.10.15.254
+ip local pool POOL105 10.11.11.2 10.11.11.254
+ip local pool POOL106 10.170.80.50 10.170.80.254
+ip local pool POOL103 50.50.0.50 50.50.7.254
+ip nat log translations syslog
+no ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 103.78.159.169
+!
+ip access-list extended ACL_IN_L4REDIRECT
+ deny   tcp any host 180.179.56.165
+ permit tcp any any eq www
+ --More--          permit tcp any any eq 443
+!
+ip radius source-interface TenGigabitEthernet1/1/0 
+no logging trap
+access-list 1 permit 180.179.56.164
+ipv6 route 2404:6DC0:0:4::/64 2404:6DC0:0:4::3
+ipv6 route ::/0 2404:6DC0:0:4::3
+!
+snmp-server community jaze RW 1
+!
+!
+radius-server attribute 44 include-in-access-req default-vrf
+radius-server attribute 44 extend-with-addr
+radius-server attribute 6 on-for-login-auth
+radius-server attribute 8 include-in-access-req
+radius-server attribute 32 include-in-access-req 
+radius-server attribute 32 include-in-accounting-req 
+radius-server attribute 55 include-in-acct-req
+radius-server attribute 55 access-request include
+radius-server attribute 25 access-request include
+radius-server attribute nas-port format d
+radius-server attribute 61 extended
+radius-server attribute 4 103.78.159.170
+ --More--         radius-server attribute 31 send nas-port-detail mac-only
+radius-server dead-criteria tries 3
+radius-server host 180.179.56.164 auth-port 1812 acct-port 1813
+radius-server host 180.179.56.165 auth-port 1812 acct-port 1813
+radius-server deadtime 15
+radius-server directed-request
+radius-server key jazenetworks
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 5 97
+ --More--         !
+ntp server 103.78.159.6 version 2
+!
+end
+
+4c0082a09d40#exit

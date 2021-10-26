@@ -1,0 +1,191 @@
+!
+! Last configuration change at 13:33:20 IST Fri Jan 8 2021 by atb
+! NVRAM config last updated at 13:33:22 IST Fri Jan 8 2021 by atb
+!
+version 12.2
+no service pad
+service timestamps debug uptime
+service timestamps log datetime localtime
+no service password-encryption
+!
+hostname NGO
+!
+enable secret 5 $1$0.rR$DHcVYLQX3lzub/Tn3z.tV.
+!
+username atb secret 5 $1$vZe0$0m6LKKln1/HpqVYViBXN/.
+no aaa new-model
+clock timezone IST 5 30
+system mtu routing 1500
+ip subnet-zero
+!
+ip dhcp snooping vlan 103
+ip dhcp snooping
+no ip domain-lookup
+!
+!
+!
+!
+!
+!
+!
+!
+errdisable recovery cause bpduguard
+errdisable recovery interval 200
+spanning-tree mode pvst
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ftp username atbb
+ip ftp password atbbatbb
+!
+interface GigabitEthernet0/1
+ switchport access vlan 103
+ switchport mode access
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface GigabitEthernet0/3
+ switchport access vlan 103
+ switchport mode access
+!
+interface GigabitEthernet0/4
+ shutdown
+!
+interface GigabitEthernet0/5
+ shutdown
+!
+interface GigabitEthernet0/6
+ shutdown
+!
+interface GigabitEthernet0/7
+ shutdown
+!
+interface GigabitEthernet0/8
+ shutdown
+!
+interface GigabitEthernet0/9
+ shutdown
+!
+interface GigabitEthernet0/10
+ shutdown
+!
+interface GigabitEthernet0/11
+ shutdown
+!
+interface GigabitEthernet0/12
+ shutdown
+!
+interface GigabitEthernet0/13
+ shutdown
+!
+interface GigabitEthernet0/14
+ shutdown
+!
+interface GigabitEthernet0/15
+ shutdown
+!
+interface GigabitEthernet0/16
+ shutdown
+!
+interface GigabitEthernet0/17
+ shutdown
+!
+interface GigabitEthernet0/18
+ shutdown
+!
+interface GigabitEthernet0/19
+ shutdown
+!
+interface GigabitEthernet0/20
+ description olt aux
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet0/21
+ description NGO TO DVD
+ switchport trunk allowed vlan 100,103
+ switchport mode trunk
+ spanning-tree mst 1 cost 10
+ spanning-tree mst 2 cost 50
+!
+interface GigabitEthernet0/22
+ description NGO TO PILAYARPURAM
+ switchport trunk allowed vlan 100-107
+ switchport mode trunk
+ spanning-tree mst 1 cost 50
+ spanning-tree mst 2 cost 10
+!
+interface GigabitEthernet0/23
+ shutdown
+!
+interface GigabitEthernet0/24
+ shutdown
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+!
+interface Vlan10
+ no ip address
+ no ip route-cache
+!
+interface Vlan20
+ no ip address
+ no ip route-cache
+!
+interface Vlan100
+ ip address 172.168.1.11 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 172.168.1.1
+no ip http server
+no ip http secure-server
+!
+ip access-list standard SNMP
+ permit 103.104.48.131
+ permit 172.168.1.200
+ deny   any
+no cdp run
+snmp-server community secureNMS RO SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps cluster
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps rtr
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vlan-membership
+snmp-server enable traps errdisable
+snmp-server host 103.104.48.131 version 2c secureNMS 
+!
+control-plane
+!
+privilege exec level 1 show
+privilege exec level 1 show interfaces
+privilege exec level 1 show logging
+privilege exec level 1 show interfaces trans
+!
+line con 0
+line vty 0 4
+ login local
+line vty 5 15
+ login
+!
+ntp clock-period 36029113
+ntp server 103.78.159.6
+end

@@ -1,0 +1,522 @@
+!
+! Last configuration change at 13:26:49 ist Fri Jan 8 2021 by atb
+! NVRAM config last updated at 13:26:51 ist Fri Jan 8 2021 by atb
+!
+version 15.1
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no service password-encryption
+service compress-config
+!
+hostname DVD-SWITCH-4948E
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition mgmtVrf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+logging event link-status global
+enable secret 4 TR39kKW4M1yN7dO6pD72FccuhPCTSeq2cCDkcJ2UPRI
+!
+username atb secret 4 Ib96bgSpjFSNiC/YCJdHyrbNgNDogUWrcQECEGESV/k
+no aaa new-model
+clock timezone ist 5 30
+!
+ip dhcp snooping vlan 103
+no ip dhcp snooping verify mac-address
+no ip dhcp snooping verify no-relay-agent-address
+ip dhcp snooping
+!
+!
+ipv6 multicast rpf use-bgp
+vtp mode transparent
+!
+!
+!
+power redundancy-mode redundant
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 30
+ name DVD-isolated
+  private-vlan isolated
+!
+vlan 100
+ name MGT
+!
+vlan 101-102 
+!
+vlan 103
+ name DVD
+  private-vlan primary
+  private-vlan association 30
+!
+ip ftp username atbb
+ip ftp password atbbatbb
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet1
+ vrf forwarding mgmtVrf
+ no ip address
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet1/1
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/2
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/3
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/4
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/5
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/6
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/7
+ description DVD2 switch
+ switchport trunk allowed vlan 100-103
+ switchport private-vlan trunk allowed vlan 100-103
+ switchport private-vlan mapping trunk 103 30
+ switchport mode private-vlan trunk promiscuous
+!
+interface GigabitEthernet1/8
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/9
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/10
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/11
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/12
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/13
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/14
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/15
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/16
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/17
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/18
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/19
+ description 68olt-sec-ip
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/20
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/21
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/22
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/23
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/24
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/25
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/26
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/27
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/28
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/29
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/30
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/31
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/32
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/33
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/34
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/35
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/36
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/37
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/38
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/39
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/40
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/41
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/42
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/43
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/44
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/45
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/46
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/47
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/48
+ switchport access vlan 103
+ switchport private-vlan host-association 103 30
+ switchport mode private-vlan host
+!
+interface TenGigabitEthernet1/49
+ description TO Vepamoodu
+ switchport trunk allowed vlan 100-103
+ switchport private-vlan trunk allowed vlan 100-103
+ switchport private-vlan mapping trunk 103 30
+ switchport mode private-vlan trunk promiscuous
+!
+interface TenGigabitEthernet1/50
+ description PAL TO DVD
+ switchport trunk allowed vlan 100-103
+ switchport private-vlan trunk allowed vlan 100-103
+ switchport private-vlan mapping trunk 103 30
+ switchport mode private-vlan trunk promiscuous
+ speed nonegotiate
+!
+interface TenGigabitEthernet1/51
+ description FAULTY PORT
+ switchport trunk allowed vlan 100-103
+ switchport private-vlan trunk allowed vlan 100-103
+ switchport private-vlan mapping trunk 103 30
+ switchport mode private-vlan trunk promiscuous
+ speed nonegotiate
+!
+interface TenGigabitEthernet1/52
+ description To Punnainagar
+ switchport trunk allowed vlan 100-103
+ switchport private-vlan trunk allowed vlan 100-103
+ switchport private-vlan mapping trunk 103 30
+ switchport mode private-vlan trunk promiscuous
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan100
+ ip address 172.168.1.5 255.255.255.0
+!
+interface Vlan103
+ no ip address
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 172.168.1.1
+!
+ip access-list standard SNMP
+ permit 103.104.48.131
+ permit 172.168.1.200
+ deny   any
+!
+!
+access-list 1 permit 103.104.48.177
+access-list 100 deny   udp any any
+no cdp run
+!
+!
+snmp-server community blaze@at RO 1
+snmp-server community secureNMS RO SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps flowmon
+snmp-server enable traps transceiver all
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps flex-links status
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+snmp-server enable traps ether-oam
+snmp-server enable traps aaa_server
+snmp-server enable traps flash insertion removal
+snmp-server enable traps l2tc threshold sys-threshold
+snmp-server enable traps power-ethernet police
+snmp-server enable traps cpu threshold
+snmp-server enable traps rep
+snmp-server enable traps udld link-fail-rpt status-change
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps entity-diag boot-up-fail hm-test-recover hm-thresh-reached scheduled-test-fail
+snmp-server enable traps port-security
+snmp-server enable traps ethernet evc status create delete
+snmp-server enable traps energywise
+snmp-server enable traps ipsla
+snmp-server enable traps vstack
+snmp-server enable traps bfd
+snmp-server enable traps bgp
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps event-manager
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps isis
+snmp-server enable traps msdp
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps isakmp policy add
+snmp-server enable traps isakmp policy delete
+snmp-server enable traps isakmp tunnel start
+snmp-server enable traps isakmp tunnel stop
+snmp-server enable traps ipsec cryptomap add
+snmp-server enable traps ipsec cryptomap delete
+snmp-server enable traps ipsec cryptomap attach
+snmp-server enable traps ipsec cryptomap detach
+snmp-server enable traps ipsec tunnel start
+snmp-server enable traps ipsec tunnel stop
+snmp-server enable traps ipsec too-many-sas
+snmp-server enable traps errdisable
+snmp-server enable traps ethernet cfm alarm
+snmp-server enable traps vlan-membership
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps rf
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+snmp-server host 103.104.48.131 version 2c secureNMS 
+!
+privilege exec level 1 show logging
+privilege exec level 1 show interfaces
+privilege exec level 1 show
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+ntp update-calendar
+ntp server 103.78.159.6
+mac address-table static 8c6d.5068.4939 vlan 101 drop
+mac address-table static 8c6d.5068.4939 vlan 102 drop
+mac address-table static 1062.eb19.39e8 vlan 103 drop
+mac address-table static 14a7.2b08.3c14 vlan 103 drop
+mac address-table static 14a7.2b0f.f875 vlan 103 drop
+mac address-table static 34db.fd77.e461 vlan 103 drop
+mac address-table static 3894.e0ca.ebd1 vlan 103 drop
+mac address-table static 3c78.4348.082c vlan 103 drop
+mac address-table static 40f2.e939.a865 vlan 103 drop
+mac address-table static 60e3.27d4.fdc7 vlan 103 drop
+mac address-table static 8014.a870.6e41 vlan 103 drop
+mac address-table static 8014.a878.5289 vlan 103 drop
+mac address-table static 8014.a878.5d49 vlan 103 drop
+mac address-table static 8014.a878.c931 vlan 103 drop
+mac address-table static 8014.a87b.d439 vlan 103 drop
+mac address-table static 8014.a889.dfd1 vlan 103 drop
+mac address-table static 8026.8900.bc35 vlan 103 drop
+mac address-table static 8416.f928.30ef vlan 103 drop
+mac address-table static 8416.f974.025b vlan 103 drop
+mac address-table static 8416.f974.47d1 vlan 103 drop
+mac address-table static 8416.f974.589b vlan 103 drop
+mac address-table static 8416.f98f.607b vlan 103 drop
+mac address-table static 8c6d.5068.4939 vlan 103 drop
+mac address-table static a0ab.1bc2.707f vlan 103 drop
+mac address-table static c822.0214.45dd vlan 103 drop
+mac address-table static ec08.6bb2.2bb9 vlan 103 drop
+end

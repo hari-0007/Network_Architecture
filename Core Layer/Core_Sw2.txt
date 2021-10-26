@@ -1,0 +1,170 @@
+
+
+Current configuration : 2975 bytes
+!
+! Last configuration change at 12:26:17 IST Thu Jul 4 2019 by atb
+! NVRAM config last updated at 10:45:10 IST Mon Jun 24 2019 by atb
+!
+version 12.2
+no service pad
+service timestamps debug uptime
+service timestamps log datetime localtime show-timezone
+no service password-encryption
+!
+hostname ATB-CORE-2
+!
+enable secret 5 $1$izqA$5NCKyztwzFG7p279kx.2o1
+!
+username atb secret 5 $1$pg/K$X5Vj4E.uHc6.ZuK4qMZ2n/
+no aaa new-model
+clock timezone IST 5 30
+switch 1 provision ws-c3750g-48ps
+system mtu routing 1500
+ip subnet-zero
+!
+ --More--         !
+!
+!
+no file verify auto
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface GigabitEthernet1/0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+ --More--         interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+ --More--         !
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/0/25
+!
+interface GigabitEthernet1/0/26
+!
+interface GigabitEthernet1/0/27
+!
+interface GigabitEthernet1/0/28
+!
+interface GigabitEthernet1/0/29
+!
+ --More--         interface GigabitEthernet1/0/30
+!
+interface GigabitEthernet1/0/31
+!
+interface GigabitEthernet1/0/32
+!
+interface GigabitEthernet1/0/33
+!
+interface GigabitEthernet1/0/34
+!
+interface GigabitEthernet1/0/35
+!
+interface GigabitEthernet1/0/36
+!
+interface GigabitEthernet1/0/37
+!
+interface GigabitEthernet1/0/38
+!
+interface GigabitEthernet1/0/39
+!
+interface GigabitEthernet1/0/40
+!
+interface GigabitEthernet1/0/41
+ --More--         !
+interface GigabitEthernet1/0/42
+!
+interface GigabitEthernet1/0/43
+!
+interface GigabitEthernet1/0/44
+!
+interface GigabitEthernet1/0/45
+!
+interface GigabitEthernet1/0/46
+!
+interface GigabitEthernet1/0/47
+!
+interface GigabitEthernet1/0/48
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/49
+ description to 4R-OLT
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/50
+ --More--          switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/51
+!
+interface GigabitEthernet1/0/52
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan100
+ ip address 172.168.1.254 255.255.255.0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 172.168.1.1
+ip http server
+!
+!
+control-plane
+!
+!
+line con 0
+line vty 0 4
+ --More--          login local
+line vty 5 15
+ login
+!
+ntp clock-period 36029098
+ntp server 103.78.159.6 version 2
+end
+

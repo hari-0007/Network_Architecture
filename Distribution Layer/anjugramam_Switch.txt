@@ -1,0 +1,220 @@
+!
+! Last configuration change at 13:40:21 asia Fri Jan 8 2021 by atb
+! NVRAM config last updated at 13:40:21 asia Fri Jan 8 2021 by atb
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no service password-encryption
+!
+hostname Anjugramam
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$GU/Z$1V2X3Y.NP0ZcxCymffCXl0
+!
+username atb secret 5 $1$IuFs$BCzwgag7vOXaZK7H4Ugxl0
+no aaa new-model
+clock timezone asia 5 30
+system mtu routing 1500
+ip subnet-zero
+!
+ip dhcp snooping vlan 102-103
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 100,102-103 forward-time 4
+!
+vlan internal allocation policy ascending
+!
+ip ftp username atbb
+ip ftp password atbbatbb
+!
+!
+interface GigabitEthernet0/1
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/2
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/3
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/4
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/5
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/6
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/7
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/8
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/9
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/10
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet0/11
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/12
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/13
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/14
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/15
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/16
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/17
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/18
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/19
+ switchport access vlan 102
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/20
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet0/21
+ description to kanyakumari
+ switchport trunk allowed vlan 100,102,103
+ switchport mode trunk
+!
+interface GigabitEthernet0/22
+ description to susindrum
+ switchport trunk allowed vlan 100,102,103
+ switchport mode trunk
+!
+interface GigabitEthernet0/23
+ switchport trunk allowed vlan 100-103
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet0/24
+ switchport trunk allowed vlan 100-103
+ switchport mode trunk
+ shutdown
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+ shutdown
+!
+interface Vlan100
+ ip address 172.168.1.18 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 172.168.1.1
+no ip http server
+no ip http secure-server
+!
+ip access-list standard SNMP
+ permit 103.104.48.131
+ deny   any
+snmp-server community secureNMS RO SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps cluster
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps power-ethernet group 1
+snmp-server enable traps power-ethernet police
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps rtr
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vlan-membership
+snmp-server enable traps errdisable
+snmp-server host 103.104.48.131 version 2c secureNMS 
+!
+control-plane
+!
+privilege exec level 1 show interfaces privilege exec level 1 show logging
+privilege exec level 1 show interfaces
+privilege exec level 1 show int trans
+privilege exec level 1 show logging
+!
+line con 0
+line vty 0 4
+ login local
+line vty 5 15
+ login
+!
+ntp clock-period 36028848
+ntp server 103.78.159.6 version 2
+end

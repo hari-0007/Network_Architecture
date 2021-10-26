@@ -1,0 +1,294 @@
+  
+
+Building configuration...
+
+Current configuration : 5760 bytes
+!
+! Last configuration change at 11:14:20 ist Sat Jul 6 2019 by atbnet
+! NVRAM config last updated at 11:08:20 ist Sat Jul 6 2019 by atbnet
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no service password-encryption
+service compress-config
+!
+hostname VMJ-SWITCH4948E
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$g1uM$wmE6TJ92C/m5h6pZnfMHF/
+!
+username atbnet secret 5 $1$dNZ/$cVB0Np8WMXgsCz/j6ajU2/
+!
+!
+no aaa new-model
+clock timezone ist 5 30
+ip subnet-zero
+!
+!
+ip dhcp snooping vlan 102
+ip dhcp snooping
+ip vrf mgmtVrf
+!
+!
+!
+!
+power redundancy-mode redundant
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+interface FastEthernet1
+ ip vrf forwarding mgmtVrf
+ no ip address
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet1/1
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/2
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/3
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/4
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/5
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/6
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/7
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/8
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/9
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/10
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/11
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/12
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/13
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/14
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/15
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/16
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/17
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/18
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/19
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/20
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/21
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/22
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/23
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/24
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/25
+ switchport access vlan 102
+ switchport mode access
+!
+ interface GigabitEthernet1/26
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/27
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/28
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/29
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/30
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/31
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/32
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/33
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/34
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/35
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/36
+ switchport access vlan 102
+ switchport mode access
+ --More--         !
+interface GigabitEthernet1/37
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/38
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/39
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/40
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/41
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/42
+ description AMIRTHA COLLEGE
+ switchport access vlan 101
+ switchport mode access
+!
+interface GigabitEthernet1/43
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/44
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/45
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/46
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/47
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/48
+ switchport access vlan 102
+ switchport mode access
+!
+interface TenGigabitEthernet1/49
+ description ALM TO VMJ
+ switchport trunk allowed vlan 100-102
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/50
+ description PAL TO VMJ
+ switchport trunk allowed vlan 100-102
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/51
+ description VMJ TO KKM
+ switchport trunk allowed vlan 100,102
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/52
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ ip address 172.168.1.3 255.255.255.0
+!
+interface Vlan102
+ no ip address
+!
+ip route 0.0.0.0 0.0.0.0 172.168.1.1
+no ip http server
+no ip http secure-server
+!
+!
+no cdp advertise-v2
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+ntp clock-period 17180505
+ntp server 103.78.159.6 version 2
+mac address-table static 8014.a878.5131 vlan 102 drop
+mac address-table static 8026.8951.bc1b vlan 102 drop
+end
+

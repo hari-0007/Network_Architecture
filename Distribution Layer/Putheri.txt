@@ -1,0 +1,334 @@
+!
+! Last configuration change at 13:36:29 asia Fri Jan 8 2021 by atb
+! NVRAM config last updated at 13:36:30 asia Fri Jan 8 2021 by atb
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no service password-encryption
+!
+hostname putherisw
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$UJBr$fEanAPBOk90Xg48V2PLGs/
+!
+username atb secret 5 $1$vFDD$hMxCaYFTd1LIcEkP37Ix90
+!
+!
+no aaa new-model
+clock timezone asia 5 30
+switch 1 provision ws-c3750g-48ts
+system mtu routing 1500
+vtp mode transparent
+!
+!
+ip dhcp snooping vlan 102
+!
+!
+crypto pki trustpoint TP-self-signed-1238932864
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1238932864
+ revocation-check none
+ rsakeypair TP-self-signed-1238932864
+!
+!
+crypto pki certificate chain TP-self-signed-1238932864
+ certificate self-signed 01
+  3082023F 308201A8 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31323338 39333238 3634301E 170D3933 30333031 30303034 
+  33305A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 32333839 
+  33323836 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100C363 3E8CC89D C92221C3 DEE7336D 2C355EBF 4E906274 EAB55A8D 53FBAF17 
+  06953CAA 2BEBA442 59734C97 D486860C 3ED474A8 60777A9C EF2A9758 C177CF89 
+  91F5B3CE 3B56C8EC 68E20689 6F3FD310 28A45A9E C60AB48E 04B28C7D 8CD330EC 
+  9BF191F5 E601DABA 8F7975DC F6EDB656 40E70CD8 5BA80718 A80AD658 1F28C469 
+  FE0D0203 010001A3 67306530 0F060355 1D130101 FF040530 030101FF 30120603 
+  551D1104 0B300982 07537769 7463682E 301F0603 551D2304 18301680 14056AB2 
+  115A406C E8F79F39 87522919 B9C0ABEB 4F301D06 03551D0E 04160414 056AB211 
+  5A406CE8 F79F3987 522919B9 C0ABEB4F 300D0609 2A864886 F70D0101 04050003 
+  818100AD 5CCF5D38 C97F68A6 EC0FBD80 6EBEA8B3 ACD0C3A7 B73C3AF2 D9540ED2 
+  95958CAC 067A1110 50A8DCBA 5C1DCC68 6734804B 4CF58644 1B8A763F 2BE71CDA 
+  C66F1388 088289CE 3C9A6989 C715B7E4 ACFC5226 09BD1880 60B13314 4E6A07D0 
+  2488818A E9BBF63A F4251941 33E3C8F3 B990B44C 9B3A093E 216BD7CD 726C1278 6CA495
+  quit
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 107 priority 24576
+spanning-tree vlan 100 forward-time 4
+!
+vlan internal allocation policy ascending
+!
+vlan 100
+ name mgmt
+!
+vlan 102
+ name vmj
+!
+vlan 105
+ name layam
+!
+vlan 107
+ name 4r
+!
+ip ftp username atbb
+ip ftp password atbbatbb
+!
+!
+interface GigabitEthernet1/0/1
+ switchport access vlan 102
+ shutdown
+!
+interface GigabitEthernet1/0/2
+ shutdown
+!
+interface GigabitEthernet1/0/3
+ shutdown
+!
+interface GigabitEthernet1/0/4
+ shutdown
+!
+interface GigabitEthernet1/0/5
+ shutdown
+!
+interface GigabitEthernet1/0/6
+ shutdown
+!
+interface GigabitEthernet1/0/7
+ shutdown
+!
+interface GigabitEthernet1/0/8
+ shutdown
+!
+interface GigabitEthernet1/0/9
+ shutdown
+!
+interface GigabitEthernet1/0/10
+ description uplink
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/0/11
+ shutdown
+!
+interface GigabitEthernet1/0/12
+ shutdown
+!
+interface GigabitEthernet1/0/13
+ shutdown
+!
+interface GigabitEthernet1/0/14
+ shutdown
+!
+interface GigabitEthernet1/0/15
+ shutdown
+!
+interface GigabitEthernet1/0/16
+ shutdown
+!
+interface GigabitEthernet1/0/17
+ shutdown
+!
+interface GigabitEthernet1/0/18
+ shutdown
+!
+interface GigabitEthernet1/0/19
+ shutdown
+!
+interface GigabitEthernet1/0/20
+ shutdown
+!
+interface GigabitEthernet1/0/21
+ shutdown
+!
+interface GigabitEthernet1/0/22
+ shutdown
+!
+interface GigabitEthernet1/0/23
+ shutdown
+!
+interface GigabitEthernet1/0/24
+ shutdown
+!
+interface GigabitEthernet1/0/25
+ shutdown
+!
+interface GigabitEthernet1/0/26
+ shutdown
+!
+interface GigabitEthernet1/0/27
+ shutdown
+!
+interface GigabitEthernet1/0/28
+ shutdown
+!
+interface GigabitEthernet1/0/29
+ shutdown
+!
+interface GigabitEthernet1/0/30
+ shutdown
+!
+interface GigabitEthernet1/0/31
+ description olt aux
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/0/32
+ switchport access vlan 100
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet1/0/33
+ shutdown
+!
+interface GigabitEthernet1/0/34
+ shutdown
+!
+interface GigabitEthernet1/0/35
+ shutdown
+!
+interface GigabitEthernet1/0/36
+ shutdown
+!
+interface GigabitEthernet1/0/37
+ shutdown
+!
+interface GigabitEthernet1/0/38
+ shutdown
+!
+interface GigabitEthernet1/0/39
+ shutdown
+!
+interface GigabitEthernet1/0/40
+ shutdown
+!
+interface GigabitEthernet1/0/41
+ shutdown
+!
+interface GigabitEthernet1/0/42
+ shutdown
+!
+interface GigabitEthernet1/0/43
+ shutdown
+!
+interface GigabitEthernet1/0/44
+ shutdown
+!
+interface GigabitEthernet1/0/45
+ shutdown
+!
+interface GigabitEthernet1/0/46
+ shutdown
+!
+interface GigabitEthernet1/0/47
+ shutdown
+!
+interface GigabitEthernet1/0/48
+ shutdown
+!
+interface GigabitEthernet1/0/49
+ shutdown
+!
+interface GigabitEthernet1/0/50
+ shutdown
+!
+interface GigabitEthernet1/0/51
+ description to 4Route
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,102,105,107
+!
+interface GigabitEthernet1/0/52
+ description to Almighty
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 100,102,105,107
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan100
+ ip address 172.168.1.15 255.255.255.0
+ no ip route-cache
+ no ip mroute-cache
+!
+ip default-gateway 172.168.1.1
+ip classless
+no ip http server
+no ip http secure-server
+!
+ip access-list standard SNMP
+ permit 103.104.48.131
+ deny   any
+!
+no cdp run
+snmp-server community secureNMS RO SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface-old
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps cluster
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps power-ethernet group 1-9
+snmp-server enable traps power-ethernet police
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps stackwise
+snmp-server enable traps license
+snmp-server enable traps event-manager
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps energywise
+snmp-server enable traps vstack
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps rtr
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vlan-membership
+snmp-server enable traps errdisable
+snmp-server host 103.104.48.131 version 2c secureNMS 
+!
+privilege exec level 1 show interfaces
+privilege exec level 1 show log
+privilege exec level 1 show int tran
+privilege exec level 1 show int trans
+!
+line con 0
+line vty 0 4
+ login local
+line vty 5 15
+ login
+!
+ntp clock-period 36029375
+ntp server 103.78.159.6 version 2
+end

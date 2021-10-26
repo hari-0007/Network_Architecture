@@ -1,0 +1,415 @@
+!
+! Last configuration change at 08:37:00 IST Sun Nov 29 2020 by atblaze
+! NVRAM config last updated at 08:36:50 IST Sun Nov 29 2020 by atblaze
+!
+version 15.4
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+no platform punt-keepalive disable-kernel-core
+!
+hostname c47d4ffbed70
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+enable secret 5 $1$mmZ8$c5l2b0sqBw9AYmQYG2OM./
+!
+aaa new-model
+!
+!
+aaa authentication login auth local
+aaa authorization network auth local 
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone IST 5 30
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+ip name-server 103.78.159.250
+ip name-server 202.56.230.2
+ip name-server 202.56.230.7
+ip name-server 2401:4900:50:9::75
+ip name-server 2401:4900:50:9::76
+ip name-server 2001:4860:4860::8888
+
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+hw-module subslot 1/1 enable lan
+spanning-tree extend system-id
+!
+username cisco privilege 15 password 0 syslog@777
+username atblaze secret 4 HcbWe21Luct5HvV7r.unl7nHjK0mDdOfFp.2uxs1jg.
+!
+redundancy
+ mode none
+!
+!
+!
+!
+controller wanphy 1/1/0
+!
+!
+!
+ip ftp username atbb
+ip ftp password atbbatbb
+ip tftp source-interface GigabitEthernet0
+!
+class-map match-any 20mp
+ match access-group 101
+class-map match-all bar
+ match any 
+!
+policy-map 20mp
+ class 20mp
+  shape average percent 50
+ class bar
+  priority level 2 5000
+policy-map pppoe
+ class class-default
+  shape average 5800000000
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+interface Port-channel2
+ description From Asianet
+ ip address 202.88.239.26 255.255.255.252
+ shutdown
+ ipv6 address 2406:8800:60::D:0:2/126
+ ipv6 enable
+!
+interface GigabitEthernet1/0/0
+ description Airtel-WAN
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+ description Vodafone-WAN
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/2
+ description Capestart ip router
+ ip address 103.78.159.245 255.255.255.252
+ no ip proxy-arp
+ negotiation auto
+!
+interface GigabitEthernet1/0/3
+ description NAT-log
+ ip address 103.78.159.5 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet1/0/4
+ description FROM AIRTEL SECONDARY
+ no ip address
+ shutdown
+ negotiation auto
+ ipv6 enable
+!
+interface GigabitEthernet1/0/5
+ description IP Auth Router
+ ip address 103.78.159.1 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet1/0/6
+ ip address 103.78.159.249 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet1/0/7
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface TenGigabitEthernet1/1/0
+ description To Asianet-Airtel
+ ip address 103.78.159.234 255.255.255.252
+ ipv6 address 2404:6DC0:102::2/126
+ ipv6 enable
+!
+interface TenGigabitEthernet1/2/0
+ description secondary-nat-router
+ no ip address
+ shutdown
+!
+interface TenGigabitEthernet1/3/0
+ description To Nating-Router
+ no ip address
+!
+interface TenGigabitEthernet1/3/0.101
+ encapsulation dot1Q 101
+ ip address 103.78.159.9 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.102
+ description VMJ ZONE
+ encapsulation dot1Q 102
+ ip address 103.78.159.241 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.103
+ description DVD ZONE
+ encapsulation dot1Q 103
+ ip address 103.78.159.237 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.104
+ encapsulation dot1Q 104
+ ip address 103.78.159.13 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.106
+ encapsulation dot1Q 106
+ ipv6 address 2404:6DC0:0:1::1/126
+ ipv6 enable
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router bgp 135876
+ no bgp enforce-first-as
+ bgp log-neighbor-changes
+ neighbor 2404:6DC0:102::1 remote-as 17465
+ neighbor 2404:6DC0:102::1 description airtel-asia
+ neighbor 103.78.159.233 remote-as 17465
+ neighbor 103.78.159.233 description airtel-asia
+ !
+ address-family ipv4
+  network 103.78.159.0 mask 255.255.255.0
+  network 103.104.48.0 mask 255.255.255.0
+  network 103.104.49.0 mask 255.255.255.0
+  no neighbor 2404:6DC0:102::1 activate
+  neighbor 103.78.159.233 activate
+  neighbor 103.78.159.233 soft-reconfiguration inbound
+  neighbor 103.78.159.233 prefix-list ASIANET-IN in
+  neighbor 103.78.159.233 prefix-list own-ip-a out
+  neighbor 103.78.159.233 route-map WANa out
+ exit-address-family
+ !
+ address-family ipv6
+  network 2404:6DC0::/32
+  neighbor 2404:6DC0:102::1 activate
+  neighbor 2404:6DC0:102::1 soft-reconfiguration inbound
+  neighbor 2404:6DC0:102::1 prefix-list own-ipv6-ppools out
+  neighbor 2404:6DC0:102::1 route-map EIX-ipv6-a2 out
+ exit-address-family
+!
+ip nat log translations syslog
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 10.0.0.0 255.255.240.0 103.78.159.242
+ip route 10.0.16.0 255.255.240.0 103.78.159.238
+ip route 10.10.0.0 255.255.240.0 103.78.159.10
+ip route 10.11.11.0 255.255.255.0 103.78.159.169
+ip route 20.20.20.0 255.255.255.0 103.78.159.2
+ip route 30.30.30.0 255.255.255.0 103.78.159.2
+ip route 80.80.80.0 255.255.255.0 103.78.159.2
+ip route 90.90.90.0 255.255.255.0 103.78.159.2
+ip route 103.78.159.0 255.255.255.0 Null0
+ip route 103.78.159.16 255.255.255.240 103.78.159.2
+ip route 103.78.159.32 255.255.255.240 103.78.159.2
+ip route 103.78.159.48 255.255.255.240 103.78.159.242
+ip route 103.78.159.64 255.255.255.248 103.78.159.238
+ip route 103.78.159.72 255.255.255.252 103.78.159.2
+ip route 103.78.159.76 255.255.255.252 103.78.159.2
+ip route 103.78.159.80 255.255.255.240 103.78.159.2
+ip route 103.78.159.96 255.255.255.248 103.78.159.246
+ip route 103.78.159.104 255.255.255.248 103.78.159.2
+ip route 103.78.159.112 255.255.255.248 103.78.159.2
+ip route 103.78.159.120 255.255.255.248 103.78.159.2
+ip route 103.78.159.128 255.255.255.224 103.78.159.2
+ip route 103.78.159.160 255.255.255.248 103.78.159.2
+ip route 103.78.159.168 255.255.255.252 103.78.159.14
+ip route 103.78.159.172 255.255.255.252 103.78.159.2
+ip route 103.78.159.184 255.255.255.248 103.78.159.2
+ip route 103.78.159.192 255.255.255.248 103.78.159.2
+ip route 103.78.159.208 255.255.255.240 103.78.159.2
+ip route 103.78.159.224 255.255.255.248 103.78.159.2
+ip route 103.78.159.252 255.255.255.252 103.78.159.14
+ip route 103.104.48.0 255.255.255.0 Null0
+ip route 103.104.48.0 255.255.255.128 103.78.159.2
+ip route 103.104.48.128 255.255.255.224 103.78.159.2
+ip route 103.104.48.160 255.255.255.224 103.78.159.2
+ip route 103.104.49.0 255.255.255.0 Null0
+ip route 103.104.49.0 255.255.255.192 103.78.159.2
+ip route 103.104.49.64 255.255.255.192 103.78.159.2
+ip route 103.104.49.96 255.255.255.240 103.78.159.2
+ip route 103.104.49.112 255.255.255.248 103.78.159.246
+ip route 103.104.49.128 255.255.255.192 103.78.159.10
+ip route 103.104.49.192 255.255.255.224 103.78.159.2
+ip route 103.104.49.224 255.255.255.224 103.78.159.242
+ip route 172.11.12.0 255.255.255.0 103.78.159.2
+ip route 172.16.31.128 255.255.255.128 103.78.159.14
+ip route 172.168.1.0 255.255.255.0 103.78.159.14
+!
+ip access-list standard SNMP
+ permit 103.104.48.131
+!
+!
+ip prefix-list ASIANET-IN seq 5 permit 0.0.0.0/0
+!
+ip prefix-list own-ip-a seq 10 permit 103.104.48.0/24
+ip prefix-list own-ip-a seq 20 permit 103.104.49.0/24
+ip prefix-list own-ip-a seq 30 permit 103.78.159.0/24
+logging trap debugging
+logging host 103.78.159.6
+access-list 100 deny   udp any any
+access-list 100 deny   tcp any any
+access-list 100 permit ip 103.104.48.0 0.0.1.255 any
+access-list 100 permit ip 103.78.159.0 0.0.0.255 any
+access-list 100 deny   ip any 103.78.159.0 0.0.0.255
+access-list 100 deny   ip any 103.104.48.0 0.0.1.255
+access-list 100 deny   udp any any eq 34074
+access-list 100 deny   udp any any eq 34330
+access-list 100 deny   udp any any eq 34586
+access-list 100 deny   udp any any eq 5450
+access-list 100 deny   udp any any eq 5440
+access-list 100 deny   udp any any eq 45446
+access-list 100 deny   udp any any eq 80
+access-list 100 deny   udp any any eq 17742
+access-list 100 deny   udp any any eq 50554
+access-list 100 deny   udp any any eq 56955
+access-list 100 deny   udp any any eq 45000
+access-list 100 deny   udp any any eq 45002
+access-list 100 deny   udp any any eq 45003
+access-list 101 deny   ip any host 103.78.159.226
+access-list 101 deny   ip any host 103.104.49.58
+access-list 101 deny   ip any host 103.104.49.67
+access-list 101 deny   ip any host 103.78.159.74
+access-list 101 permit ip host 103.78.159.74 any
+access-list 101 permit ip host 103.78.159.226 any
+access-list 101 permit ip host 103.104.49.58 any
+access-list 101 permit ip host 103.104.49.67 any
+access-list 101 deny   ip any host 103.104.48.24
+access-list 101 permit ip host 103.104.48.24 any
+access-list 101 deny   ip any host 103.78.159.6
+access-list 101 permit ip host 103.78.159.6 any
+access-list 101 deny   ip any host 103.104.48.163
+access-list 101 permit ip host 103.104.48.163 any
+ipv6 route 2404:6DC0:0:1::4/126 2404:6DC0:0:1::2
+ipv6 route 2404:6DC0:0:2::/126 2404:6DC0:0:1::2
+ipv6 route 2404:6DC0:0:3::/64 2404:6DC0:0:1::4
+ipv6 route 2404:6DC0::/60 2404:6DC0:0:1::4
+ipv6 route 2404:6DC0:1::/60 2404:6DC0:0:1::4
+ipv6 route 2404:6DC0:2:1::/64 2404:6DC0:0:1::4
+ipv6 route 2404:6DC0:2300::/48 2404:6DC0:0:1::4
+ipv6 route 2404:6DC0:23FF:FFFF::/64 2404:6DC0:0:1::4
+ipv6 route 2404:6DC0:AB00::/40 2404:6DC0:0:1::4
+ipv6 route 2404:6DC0::/32 Null0
+!
+!
+ipv6 prefix-list own-ipv6-ppools seq 10 permit 2404:6DC0::/32
+route-map WANa2 permit 10
+ match ip address prefix-list own-ip-a2
+ set as-path prepend 135876 135876 135876
+!
+route-map ASIANET-OUT permit 10
+ match ip address 100
+ set ip next-hop 202.88.239.25
+!
+route-map WANa permit 10
+ match ip address prefix-list own-ip-a
+ set as-path prepend 135876 135876 135876
+!
+route-map WAN permit 10
+ match ip address prefix-list own-ip
+ set as-path prepend 135876 135876 135876
+!
+route-map EIX-ipv6-a2 permit 10
+ match ipv6 address prefix-list own-ipv6-ppools
+ set as-path prepend 135876 135876 135876
+!
+snmp-server community secureNMS RO SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server host 103.104.48.131 version 2c secureNMS 
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+privilege exec level 15 verify
+privilege exec level 1 ping
+privilege exec level 1 login
+privilege exec level 1 logging
+privilege exec level 1 show logging
+privilege exec level 1 show
+privilege exec level 0 logout
+!
+line con 0
+ stopbits 1
+line vty 5 97
+!
+ntp server 103.78.159.6 version 2
+!
+end

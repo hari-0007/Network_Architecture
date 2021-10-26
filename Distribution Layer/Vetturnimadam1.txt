@@ -1,0 +1,434 @@
+!
+! Last configuration change at 12:58:54 ist Fri Jan 8 2021 by atbnet
+! NVRAM config last updated at 14:23:15 ist Wed Jan 6 2021 by atbnet
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no service password-encryption
+service compress-config
+!
+hostname VMJ-SWITCH4948E
+!
+boot-start-marker
+boot-end-marker
+!
+logging event link-status global
+enable secret 5 $1$6pAI$rJWDewg33kavSNADn7tGp0
+!
+username atbnet secret 5 $1$ZlFH$fGc4YXBuqs7x10uhBMXkE0
+!
+!
+no aaa new-model
+clock timezone ist 5 30
+vtp mode transparent
+ip subnet-zero
+!
+!
+ip dhcp snooping vlan 101-107
+no ip dhcp snooping verify mac-address
+no ip dhcp snooping verify no-relay-agent-address
+ip dhcp snooping
+ip vrf mgmtVrf
+!
+!
+!
+!
+power redundancy-mode redundant
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+ name VMJ-isolated
+  private-vlan isolated
+!
+vlan 20
+ name pal-iso
+  private-vlan isolated
+!
+vlan 100
+ name mgt
+!
+vlan 101
+ name pal
+  private-vlan primary
+  private-vlan association 20
+!
+vlan 102
+ name vmj
+  private-vlan primary
+  private-vlan association 10
+!
+vlan 103
+ name dvd
+!
+vlan 105
+ name layam
+!
+vlan 106
+ name TKL
+!
+ip ftp username atbb
+ip ftp password atbbatbb
+!
+!
+interface FastEthernet1
+ ip vrf forwarding mgmtVrf
+ no ip address
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet1/1
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/2
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/3
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/4
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/5
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/6
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/7
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/8
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/9
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/10
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/11
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/12
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/13
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/14
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/15
+ description to secondary switch
+ switchport trunk allowed vlan 100,106
+ switchport mode trunk
+!
+interface GigabitEthernet1/16
+ description wifi router
+ switchport access vlan 101
+ switchport mode access
+!
+interface GigabitEthernet1/17
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/18
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/19
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/20
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/21
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/22
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/23
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/24
+ switchport access vlan 101
+!
+interface GigabitEthernet1/25
+ description VPN-PAL
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+ shutdown
+!
+interface GigabitEthernet1/26
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/27
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/28
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/29
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/30
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/31
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/32
+ description NMS Dlink switch
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/33
+ description ponjesly school
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/34
+ description Eses BPO
+ switchport access vlan 102
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/35
+ description RF
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/36
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/37
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/38
+ description Borotik
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/39
+ description Vinmeen School
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/40
+ description Thiraviyam hos
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/41
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/42
+ description AMIRTHA COLLEGE
+ switchport private-vlan host-association 101 20
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/43
+ description ponjesly college
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/44
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/45
+ description ponjesly chairman
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/46
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/47
+ description xavier college
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface GigabitEthernet1/48
+ switchport private-vlan host-association 102 10
+ switchport mode private-vlan host
+!
+interface TenGigabitEthernet1/49
+ description ALM TO VMJ
+ switchport private-vlan trunk allowed vlan 100-106
+ switchport private-vlan mapping trunk 102 10
+ switchport mode private-vlan trunk promiscuous
+!
+interface TenGigabitEthernet1/50
+ description PAL TO VMJ
+ switchport private-vlan trunk allowed vlan 100-106
+ switchport private-vlan mapping trunk 101 20
+ switchport private-vlan mapping trunk 102 10
+ switchport mode private-vlan trunk promiscuous
+ speed nonegotiate
+!
+interface TenGigabitEthernet1/51
+ description NGL TO TKL
+ switchport trunk allowed vlan 100-107
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/52
+ description VMJ TO KKM-SEC
+ switchport trunk allowed vlan 100-107
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ ip address 172.168.1.3 255.255.255.0
+!
+interface Vlan101
+ no ip address
+ shutdown
+ private-vlan mapping 20
+!
+interface Vlan102
+ no ip address
+ private-vlan mapping 10
+!
+ip route 0.0.0.0 0.0.0.0 172.168.1.1
+no ip http server
+no ip http secure-server
+!
+!
+ip access-list standard SNMP
+ permit 103.104.48.131
+ permit 172.168.1.200
+ deny   any
+!
+logging trap debugging
+no cdp run
+!
+snmp-server community blaze@at RO 1
+snmp-server community secureNMS RO SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps flex-links status
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps ether-oam
+snmp-server enable traps flash insertion removal
+snmp-server enable traps power-ethernet police
+snmp-server enable traps cpu threshold
+snmp-server enable traps rep
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps entity-diag boot-up-fail hm-test-recover hm-thresh-reached scheduled-test-fail
+snmp-server enable traps port-security
+snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+snmp-server enable traps ethernet cfm alarm
+snmp-server enable traps ethernet evc status create delete
+snmp-server enable traps rf
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps ipmulticast
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps event-manager
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps energywise
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps errdisable
+snmp-server enable traps vlan-membership
+snmp-server enable traps mac-notification change move threshold
+snmp-server host 103.104.48.131 version 2c secureNMS 
+privilege exec level 1 show logging
+privilege exec level 1 show int tranceiver
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+ntp clock-period 17180535
+ntp server 103.78.159.6 version 2
+mac address-table static 58d5.6e86.f0af vlan 101 drop
+mac address-table static 0017.7c5a.43bb vlan 102 drop
+mac address-table static 0017.7c70.bd8e vlan 102 drop
+mac address-table static 0027.0e1c.2004 vlan 102 drop
+mac address-table static 00e0.4c65.002d vlan 102 drop
+mac address-table static 00e0.4c7f.4b34 vlan 102 drop
+mac address-table static 0cb6.d20f.3ea9 vlan 102 drop
+mac address-table static 1062.eb18.c8e4 vlan 102 drop
+mac address-table static 1062.eb28.b646 vlan 102 drop
+mac address-table static 14a7.2b04.d791 vlan 102 drop
+mac address-table static 14a7.2b04.dab9 vlan 102 drop
+mac address-table static 1c87.2c5d.c464 vlan 102 drop
+mac address-table static 2831.664c.75b9 vlan 102 drop
+mac address-table static 34db.fd77.e461 vlan 102 drop
+mac address-table static 5404.a6d9.4b3a vlan 102 drop
+mac address-table static 5448.10a4.9793 vlan 102 drop
+mac address-table static 58d5.6e86.f0af vlan 102 drop
+mac address-table static 744d.28d9.c4e2 vlan 102 drop
+mac address-table static 744d.28db.23e4 vlan 102 drop
+mac address-table static 744d.28ec.c797 vlan 102 drop
+mac address-table static 8014.a878.5131 vlan 102 drop
+mac address-table static 8014.a889.ab09 vlan 102 drop
+mac address-table static 8026.8901.1620 vlan 102 drop
+mac address-table static 8026.8951.bc1b vlan 102 drop
+mac address-table static 8026.8951.bcb1 vlan 102 drop
+mac address-table static 808a.8b19.334d vlan 102 drop
+mac address-table static 8810.8f62.ca78 vlan 102 drop
+mac address-table static a0ab.1b1f.622f vlan 102 drop
+mac address-table static a0ab.1b2a.5d2d vlan 102 drop
+mac address-table static a0ab.1be1.e785 vlan 102 drop
+mac address-table static a8bf.3c24.6d57 vlan 102 drop
+mac address-table static b0be.7675.6023 vlan 102 drop
+mac address-table static c8e7.d89f.5f29 vlan 102 drop
+mac address-table static c8e7.d8a8.ed8b vlan 102 drop
+mac address-table static ecad.e042.5469 vlan 102 drop
+mac address-table static f48c.eba6.12ea vlan 102 drop
+end

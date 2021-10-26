@@ -1,0 +1,215 @@
+
+Current configuration : 5058 bytes
+!
+! Last configuration change at 18:23:10 IST Fri Jul 5 2019 by atb
+! NVRAM config last updated at 18:23:11 IST Fri Jul 5 2019 by atb
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime show-timezone
+no service password-encryption
+!
+hostname LAYAM
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$N8tv$CVIneoOy9jZe/aIegH/b7.
+!
+username atb secret 5 $1$a/Dh$wRxrqck5KtN5HiC198Xwk0
+no aaa new-model
+clock timezone IST 5 30
+switch 1 provision ws-c2960s-24ts-l
+!
+!
+ip dhcp snooping vlan 105
+no ip domain-lookup
+!
+!
+crypto pki trustpoint TP-self-signed-2484968960
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2484968960
+ revocation-check none
+ rsakeypair TP-self-signed-2484968960
+!
+!
+crypto pki certificate chain TP-self-signed-2484968960
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32343834 39363839 3630301E 170D3131 30333330 30313239 
+  32365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 34383439 
+  36383936 3030819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100EE91 40F501D3 C768EB4F 7DD36A24 8E9F2BBB F138447C 44F168A8 FB9D65D3 
+  54D9EBAE BDF01D27 3880C9A2 A3E86A37 CA1993E7 831DAB8D 8BF38AAB 53EF506C 
+  99A02CEA 1A59BC68 110A69D5 CAD5B4AE 121D9B15 3CACF0D5 5588DBC0 3FAC1943 
+  127F303E AFCBCB66 C1179C05 CC028EA8 64973DB9 A2757543 9ABAF1D7 841A2F16 
+  DAB90203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603 
+  551D2304 18301680 147A08A6 2352EABF 9282C738 6F01BDC8 01CBCC2F EA301D06 
+  03551D0E 04160414 7A08A623 52EABF92 82C7386F 01BDC801 CBCC2FEA 300D0609 
+  2A864886 F70D0101 05050003 818100A4 15D37A7F 74E2DC7C 454CAF0B 9553322C 
+  EDD50617 993079F1 7824C319 5349B136 5916D924 4248A684 A77E4D00 AC22A56A 
+  0C70DF31 64CE23CD 545F09C7 F2BC93E0 4B0F34C9 6ADF84E0 B6B3D04B A58333BB 
+  2CD71F71 DE4540D6 72466FCE FCCF3524 1B4C8DC5 597209B1 9658AC37 4C812453 
+  B15577B5 29B3A049 B6314533 59D635
+  quit
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+!
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+ip ftp username atbb
+ip ftp password atbb123
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+!
+interface GigabitEthernet1/0/1
+ switchport trunk allowed vlan 100,103,105,107
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+ switchport trunk allowed vlan 100,103,105,107
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/4
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/5
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/6
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/7
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/8
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/9
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/10
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/11
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/12
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/13
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/14
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/15
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/16
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/17
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/18
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/19
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/20
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/21
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/22
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/0/23
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/0/24
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/0/25
+ description To Vellamadam
+ switchport trunk allowed vlan 100,103,105,107
+!
+interface GigabitEthernet1/0/26
+ description TO 4R
+ switchport trunk allowed vlan 100,103,105,107
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/27
+!
+interface GigabitEthernet1/0/28
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan100
+ ip address 172.168.1.7 255.255.255.0
+!
+ip default-gateway 172.168.1.1
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+line con 0
+line vty 0 4
+ login local
+line vty 5 15
+ login
+!
+ntp server 103.78.159.6 version 2
+end

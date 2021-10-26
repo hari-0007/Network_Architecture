@@ -1,0 +1,258 @@
+!
+! Last configuration change at 13:34:15 IST Fri Jan 8 2021 by atb
+! NVRAM config last updated at 13:34:16 IST Fri Jan 8 2021 by atb
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no service password-encryption
+!
+hostname DVD2
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$8v.g$RCfllPaYnb2bXjAbIzHeN.
+!
+username atb secret 5 $1$cffP$0UFlPmgjy8Y3Yrk11RF3O/
+!
+!
+no aaa new-model
+clock timezone IST 5 30
+system mtu routing 1500
+!
+!
+ip dhcp snooping vlan 103
+!
+!
+crypto pki trustpoint TP-self-signed-2407403776
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2407403776
+ revocation-check none
+ rsakeypair TP-self-signed-2407403776
+!
+!
+crypto pki certificate chain TP-self-signed-2407403776
+ certificate self-signed 01
+  3082023F 308201A8 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32343037 34303337 3736301E 170D3933 30333031 30303032 
+  30395A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 34303734 
+  30333737 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100BBD0 0A067CE0 93B142F1 95F55D3F 4103BF40 EA0D2D94 80444210 438A6E87 
+  1090C348 E6EFA648 AD8B22DE F01429C6 4732FBBF 884DBD24 905566AB A65894B5 
+  16D7812E 579BD9A9 25DF45FE B89D1BDA AAA67B82 110A46D6 F7B819DB E60DA69C 
+  EDB9A0E2 5A60B558 EB5372B5 AFE89288 40E624FF D205E775 5C1A56E1 61B84DBA 
+  108F0203 010001A3 67306530 0F060355 1D130101 FF040530 030101FF 30120603 
+  551D1104 0B300982 07537769 7463682E 301F0603 551D2304 18301680 146B7FC1 
+  39F60E09 4C5EEB69 F0ECC191 D559C5FD E2301D06 03551D0E 04160414 6B7FC139 
+  F60E094C 5EEB69F0 ECC191D5 59C5FDE2 300D0609 2A864886 F70D0101 04050003 
+  81810062 2BDADFF3 D6529FFF 3F624E10 12DC9D2A 5525E346 7F86BDFA 4F2CB6AD 
+  D3E56018 0128AA4D 4E38BD52 54EC990A 7C2B65D5 86206023 50317FE1 9BBC6ED3 
+  8FD67C67 D7910DB4 65C13AE2 B44936C9 27917B33 F59999FD E0F4C942 34A836DA 
+  4010FB05 BB2DDFFB 6DDF50AD B61AD93D 8EA293EE 97E3DACD D6BEBCE9 C2DABA5E 6E8977
+  quit
+!
+!
+!
+errdisable recovery cause bpduguard
+errdisable recovery interval 200
+!
+spanning-tree mode pvst
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ftp username atbb
+ip ftp password atbbatbb
+!
+!
+interface GigabitEthernet0/1
+ description wan-input
+ switchport trunk allowed vlan 100-107
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ description wan-ip2
+ switchport trunk allowed vlan 100,102,103
+ switchport mode trunk
+ shutdown
+!
+interface GigabitEthernet0/3
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/4
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/5
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/6
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/7
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/8
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/9
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/10
+ description Pal-nw-oltinput
+ switchport access vlan 101
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/11
+ description test port
+ switchport access vlan 103
+ switchport mode access
+!
+interface GigabitEthernet0/12
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/13
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/14
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/15
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/16
+ switchport access vlan 103
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/17
+ description Pal-nw-oltaux
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet0/18
+ switchport access vlan 100
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/19
+ switchport access vlan 100
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/20
+ switchport access vlan 100
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/21
+ description To Sucintram
+ switchport trunk allowed vlan 100,102,103
+ switchport mode trunk
+!
+interface GigabitEthernet0/22
+ description To Ngocolony
+ switchport trunk allowed vlan 100-107
+ switchport mode trunk
+ spanning-tree mst 1 cost 50
+ spanning-tree mst 2 cost 10
+!
+interface GigabitEthernet0/23
+ description to Kottar
+ switchport trunk allowed vlan 100-103
+ switchport mode trunk
+!
+interface GigabitEthernet0/24
+ description Dvd to Pillayr ring
+ switchport trunk allowed vlan 100-107
+ switchport mode trunk
+ spanning-tree mst 1 cost 10
+ spanning-tree mst 2 cost 50
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan100
+ ip address 172.168.1.12 255.255.255.0
+!
+ip default-gateway 172.168.1.1
+no ip http server
+no ip http secure-server
+!
+ip access-list standard SNMP
+ permit 103.104.48.131
+ permit 172.168.1.200
+ deny   any
+no cdp run
+snmp-server community secureNMS RO SNMP
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps cluster
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps rep
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps power-ethernet group 1
+snmp-server enable traps power-ethernet police
+snmp-server enable traps fru-ctrl
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps energywise
+snmp-server enable traps rtr
+snmp-server enable traps vstack
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vlan-membership
+snmp-server enable traps errdisable
+snmp-server host 103.104.48.131 version 2c secureNMS 
+privilege exec level 1 show interfaces
+privilege exec level 1 show logging
+privilege exec level 1 show
+!
+line con 0
+line vty 0 4
+ login local
+line vty 5 15
+ login
+!
+ntp clock-period 36029396
+ntp server 103.78.159.6 version 2
+end

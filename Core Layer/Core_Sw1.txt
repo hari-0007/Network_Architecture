@@ -1,0 +1,235 @@
+
+Current configuration : 4246 bytes
+!
+! Last configuration change at 12:49:44 india Sat Jun 29 2019 by atbnet
+! NVRAM config last updated at 13:50:02 india Sat Jun 22 2019 by atbnet
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime localtime
+no service password-encryption
+service compress-config
+!
+hostname coreswitch
+!
+boot-start-marker
+boot system bootflash:/cat4500e-entservicesk9-mz.150-2.SG2.bin
+boot-end-marker
+!
+enable secret 5 $1$2eHT$jt7HvOSFbFJpH1CUGgt6Z1
+!
+username atbnet secret 5 $1$vm37$rXLppdx39wUD0YTe61puQ0
+!
+ --More--         !
+no aaa new-model
+clock timezone india 5 30
+ip subnet-zero
+no ip domain-lookup
+ip vrf mgmtVrf
+!
+!
+!
+!
+!
+!
+power redundancy-mode redundant
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 100-103,900 priority 24576
+!
+vlan internal allocation policy ascending
+!
+ --More--         ip ftp username atbb
+ip ftp password atbb123
+!
+!
+interface Port-channel30
+ description CORE PORT CHANNEL
+ switchport
+ switchport trunk allowed vlan 100-103
+ switchport mode trunk
+!
+interface FastEthernet1
+ ip vrf forwarding mgmtVrf
+ no ip address
+ speed auto
+ duplex auto
+!
+interface GigabitEthernet1/1
+ description Almighty Office LAN
+ switchport access vlan 101
+ switchport mode access
+!
+interface GigabitEthernet1/2
+ description To VMJ OLT
+ --More--          switchport mode trunk
+!
+interface GigabitEthernet1/3
+ description TO 4R
+ switchport access vlan 107
+ switchport mode access
+!
+interface GigabitEthernet1/4
+ description pal-ip auth input
+ switchport access vlan 101
+ switchport mode access
+!
+interface GigabitEthernet1/5
+ description VMJ-ip auth input
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/6
+ description DVD-ip auth input
+ switchport access vlan 103
+ switchport mode access
+!
+interface GigabitEthernet1/7
+ --More--          shutdown
+!
+interface GigabitEthernet1/8
+!
+interface GigabitEthernet1/9
+ description To DVD OLT
+ switchport mode trunk
+!
+interface GigabitEthernet1/10
+ description 4R ip auh input
+ switchport access vlan 107
+ switchport mode access
+!
+interface GigabitEthernet1/11
+ description TO LAYAM OLT
+ switchport mode trunk
+!
+interface GigabitEthernet1/12
+ description IP AUTH I/P
+ switchport access vlan 105
+ switchport mode access
+!
+interface GigabitEthernet1/13
+ --More--          description UPS
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet1/14
+ switchport access vlan 102
+ switchport mode access
+!
+interface GigabitEthernet1/15
+!
+interface GigabitEthernet1/16
+!
+interface GigabitEthernet1/17
+!
+interface GigabitEthernet1/18
+!
+interface GigabitEthernet1/19
+!
+interface GigabitEthernet1/20
+!
+interface GigabitEthernet1/21
+!
+interface GigabitEthernet1/22
+ --More--         !
+interface GigabitEthernet1/23
+!
+interface GigabitEthernet1/24
+!
+interface GigabitEthernet1/25
+!
+interface GigabitEthernet1/26
+!
+interface GigabitEthernet1/27
+!
+interface GigabitEthernet1/28
+!
+interface GigabitEthernet1/29
+!
+interface GigabitEthernet1/30
+!
+interface GigabitEthernet1/31
+!
+interface GigabitEthernet1/32
+!
+interface GigabitEthernet1/33
+!
+ --More--         interface GigabitEthernet1/34
+!
+interface GigabitEthernet1/35
+!
+interface GigabitEthernet1/36
+!
+interface GigabitEthernet1/37
+!
+interface GigabitEthernet1/38
+!
+interface GigabitEthernet1/39
+!
+interface GigabitEthernet1/40
+!
+interface GigabitEthernet1/41
+!
+interface GigabitEthernet1/42
+!
+interface GigabitEthernet1/43
+!
+interface GigabitEthernet1/44
+ switchport mode access
+!
+ --More--         interface GigabitEthernet1/45
+ switchport mode access
+!
+interface GigabitEthernet1/46
+ description CAPSTART I/P
+!
+interface GigabitEthernet1/47
+!
+interface GigabitEthernet1/48
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/49
+ description BRS Te1/3/0
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/50
+ description ALM TO VMJ-10G
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/51
+ description ALM TO PAL
+ switchport mode trunk
+!
+ --More--         interface TenGigabitEthernet1/52
+!
+interface Vlan1
+ ip address 103.78.159.254 255.255.255.252 secondary
+ ip address 172.16.16.2 255.255.255.0
+ no ip redirects
+!
+ip route 0.0.0.0 0.0.0.0 172.16.16.1
+no ip http server
+no ip http secure-server
+!
+!
+!
+logging history emergencies
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+line vty 5 16
+ login local
+ --More--         !
+ntp clock-period 17180415
+ntp server 103.78.159.6 version 2
+end
+

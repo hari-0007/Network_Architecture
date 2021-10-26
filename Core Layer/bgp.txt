@@ -1,0 +1,442 @@
+
+Current configuration : 13735 bytes
+!
+! Last configuration change at 13:13:17 IST Thu Jul 4 2019 by atbnet
+! NVRAM config last updated at 13:13:18 IST Thu Jul 4 2019 by atbnet
+!
+version 15.1
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+no platform punt-keepalive disable-kernel-core
+!
+hostname c47d4ffbed70
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+ --More--         !
+enable secret 4 Y6aPae7RZB3OZiTHYbeLJF3a2rH3xdLEmcnEASAixLI
+!
+aaa new-model
+!
+!
+aaa authentication login auth local
+aaa authorization network auth local 
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone IST 5 30
+clock save interval 8
+!
+!
+!
+ip name-server 45.120.250.4
+ip name-server 45.120.250.5
+ip name-server 2001:4860:4860::8888
+ip name-server 2001:4860:4860::8844
+!
+ --More--         !
+!
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username atbnet secret 4 RTHO0WEPtX8oZHq/ECzTbPnJvLSJFkQZ3AFSNZlNARE
+!
+redundancy
+ mode none
+!
+!
+ --More--         !
+!
+!
+ip ftp username atbb
+ip ftp password atbb123
+!
+! 
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ no ip address
+ no negotiation auto
+!
+interface Tunnel1
+ no ip address
+ shutdown
+ ipv6 address 2001:470:17:FF::2/64
+ ipv6 enable
+ tunnel source 103.78.159.1
+ tunnel mode ipv6ip
+ --More--          tunnel destination 216.218.221.2
+!
+interface GigabitEthernet1/0/0
+ description Airtel-WAN
+ ip address 103.104.49.225 255.255.255.252 secondary
+ ip address 182.71.239.42 255.255.255.252
+ ip nat outside
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+ description Vodafone-WAN
+ ip address 123.63.104.9 255.255.255.252
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet1/0/2
+ description Capestart ip router
+ ip address 103.78.159.245 255.255.255.252
+ no ip proxy-arp
+ negotiation auto
+!
+interface GigabitEthernet1/0/3
+ description NAT-log
+ ip address 103.78.159.5 255.255.255.252
+ --More--          negotiation auto
+!
+interface GigabitEthernet1/0/4
+ description FROM AIRTEL SECONDARY
+ ip address 182.75.3.62 255.255.255.252
+ ip nat outside
+ negotiation auto
+ ipv6 address 2404:A800:8A00:205::2/126
+ ipv6 enable
+!
+interface GigabitEthernet1/0/5
+ description IP Auth Router
+ ip address 103.78.159.1 255.255.255.252
+ negotiation auto
+ ipv6 address 2404:6DC0:ABCD:12::1/64
+ ipv6 enable
+!
+interface GigabitEthernet1/0/6
+ ip address 103.78.159.249 255.255.255.252
+ negotiation auto
+ ipv6 address 2404:6DC0:0:3::1/64
+ ipv6 enable
+!
+interface GigabitEthernet1/0/7
+ --More--          description DNS Server
+ ip address 103.78.159.233 255.255.255.252
+ negotiation auto
+!
+interface TenGigabitEthernet1/1/0
+ no ip address
+ shutdown
+!
+interface TenGigabitEthernet1/2/0
+ description Extreme IX Chennai
+ ip address 45.120.251.147 255.255.255.0
+ no ip proxy-arp
+ ipv6 address 2001:DF2:1900:3::147/64
+ ipv6 enable
+!
+interface TenGigabitEthernet1/3/0
+ description to Nating Router
+ no ip address
+!
+interface TenGigabitEthernet1/3/0.101
+ description PAL ZONE
+ encapsulation dot1Q 101
+ ip address 103.78.159.9 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.102
+ description VMJ ZONE
+ encapsulation dot1Q 102
+ ip address 103.78.159.241 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.103
+ description DVD ZONE
+ encapsulation dot1Q 103
+ ip address 103.78.159.237 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.104
+ encapsulation dot1Q 104
+ ip address 103.78.159.13 255.255.255.252
+!
+interface TenGigabitEthernet1/3/0.106
+ encapsulation dot1Q 106
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router bgp 135876
+ no bgp enforce-first-as
+ bgp log-neighbor-changes
+ neighbor 2001:470:17:FF::1 remote-as 6939
+ neighbor 2001:470:17:FF::1 description HE.NET
+ neighbor 2001:470:17:FF::1 update-source Tunnel1
+ neighbor 2001:DF2:1900:3::135 remote-as 15169
+ neighbor 2001:DF2:1900:3::135 description GOOGLE ipv6
+ neighbor 2001:DF2:1900:3::135 password jutran7dEbUwr6c9
+ neighbor 2001:DF2:1900:3::136 remote-as 16509
+ neighbor 2001:DF2:1900:3::136 description amazon ipv6
+ neighbor 2001:DF2:1900:3::137 remote-as 8075
+ neighbor 2001:DF2:1900:3::137 description microsoft ipv6
+ neighbor 2001:DF2:1900:3::138 remote-as 32934
+ neighbor 2001:DF2:1900:3::138 description facebook-ipv6-2
+ neighbor 2001:DF2:1900:3::139 remote-as 32934
+ neighbor 2001:DF2:1900:3::139 description FACEBOOK ipv6
+ neighbor 2001:DF2:1900:3::200 remote-as 49378
+ neighbor 2001:DF2:1900:3::200 description RS1
+ neighbor 2001:DF2:1900:3::240 remote-as 49378
+ neighbor 2001:DF2:1900:3::240 description RS2
+ neighbor 2404:A800:8A00:205::1 remote-as 9498
+ neighbor 2404:A800:8A00:205::1 description airtel-sec ipv6
+ neighbor 2404:A800:8A00:205::1 update-source GigabitEthernet1/0/4
+ neighbor 45.120.251.135 remote-as 15169
+ neighbor 45.120.251.135 description Google
+ neighbor 45.120.251.135 password jutran7dEbUwr6c9
+ neighbor 45.120.251.136 remote-as 16509
+ neighbor 45.120.251.136 description Amazon
+ neighbor 45.120.251.137 remote-as 8075
+ neighbor 45.120.251.137 description Microsoft
+ neighbor 45.120.251.138 remote-as 32934
+ neighbor 45.120.251.138 description facebook 2
+ neighbor 45.120.251.139 remote-as 32934
+ neighbor 45.120.251.139 description Facebook
+ neighbor 45.120.251.140 remote-as 20940
+ neighbor 45.120.251.140 description Akamai
+ neighbor 45.120.251.141 remote-as 2906
+ neighbor 45.120.251.141 description NETFLIX 1
+ neighbor 45.120.251.142 remote-as 2906
+ neighbor 45.120.251.142 description NETFLIX 2
+ neighbor 45.120.251.200 remote-as 49378
+ neighbor 45.120.251.200 description Route-Server1
+ neighbor 45.120.251.240 remote-as 49378
+ neighbor 45.120.251.240 description Route-Server2
+ neighbor 182.71.239.41 remote-as 9498
+ neighbor 182.71.239.41 description AIRTEL
+ neighbor 182.71.239.41 update-source GigabitEthernet1/0/0
+ neighbor 182.75.3.61 remote-as 9498
+ neighbor 182.75.3.61 description AIRTEL-SEC
+ neighbor 182.75.3.61 update-source GigabitEthernet1/0/4
+ !
+ address-family ipv4
+  network 103.78.159.0 mask 255.255.255.0
+  network 103.104.48.0 mask 255.255.255.0
+  network 103.104.49.0 mask 255.255.255.0
+  no neighbor 2001:470:17:FF::1 activate
+  no neighbor 2001:DF2:1900:3::135 activate
+  no neighbor 2001:DF2:1900:3::136 activate
+  no neighbor 2001:DF2:1900:3::137 activate
+  no neighbor 2001:DF2:1900:3::138 activate
+  no neighbor 2001:DF2:1900:3::139 activate
+  no neighbor 2001:DF2:1900:3::200 activate
+  no neighbor 2001:DF2:1900:3::240 activate
+  no neighbor 2404:A800:8A00:205::1 activate
+  neighbor 45.120.251.135 activate
+  neighbor 45.120.251.135 soft-reconfiguration inbound
+  neighbor 45.120.251.135 prefix-list own-ip-ppools out
+  neighbor 45.120.251.136 activate
+  neighbor 45.120.251.136 soft-reconfiguration inbound
+  neighbor 45.120.251.136 prefix-list own-ip-ppools out
+  neighbor 45.120.251.137 activate
+  neighbor 45.120.251.137 soft-reconfiguration inbound
+  neighbor 45.120.251.137 prefix-list own-ip-ppools out
+  neighbor 45.120.251.138 activate
+  neighbor 45.120.251.138 soft-reconfiguration inbound
+  neighbor 45.120.251.138 prefix-list own-ip-ppools out
+  neighbor 45.120.251.139 activate
+  neighbor 45.120.251.139 soft-reconfiguration inbound
+  neighbor 45.120.251.139 prefix-list own-ip-ppools out
+  neighbor 45.120.251.140 activate
+  neighbor 45.120.251.140 soft-reconfiguration inbound
+  neighbor 45.120.251.140 prefix-list own-ip-ppools out
+  neighbor 45.120.251.141 activate
+  neighbor 45.120.251.141 soft-reconfiguration inbound
+  neighbor 45.120.251.141 route-map NETFLIX-OUT out
+  neighbor 45.120.251.142 activate
+  neighbor 45.120.251.142 soft-reconfiguration inbound
+  neighbor 45.120.251.142 route-map NETFLIX-OUT out
+  neighbor 45.120.251.200 activate
+  neighbor 45.120.251.200 send-community
+  neighbor 45.120.251.200 soft-reconfiguration inbound
+  neighbor 45.120.251.200 prefix-list own-ip-ppools out
+  neighbor 45.120.251.200 route-map EIX out
+  neighbor 45.120.251.240 activate
+  neighbor 45.120.251.240 send-community
+  neighbor 45.120.251.240 soft-reconfiguration inbound
+  neighbor 45.120.251.240 prefix-list own-ip-ppools out
+  neighbor 45.120.251.240 route-map EIX out
+  neighbor 182.71.239.41 activate
+  neighbor 182.71.239.41 soft-reconfiguration inbound
+  neighbor 182.71.239.41 prefix-list own-ip out
+  neighbor 182.71.239.41 route-map WAN out
+  neighbor 182.75.3.61 activate
+  neighbor 182.75.3.61 soft-reconfiguration inbound
+  neighbor 182.75.3.61 prefix-list own-ip-a out
+  neighbor 182.75.3.61 route-map WANa out
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DF2:1900:3::135 activate
+  neighbor 2001:DF2:1900:3::135 soft-reconfiguration inbound
+  neighbor 2001:DF2:1900:3::135 prefix-list own-ipv6-ppools out
+  neighbor 2001:DF2:1900:3::136 activate
+  neighbor 2001:DF2:1900:3::136 soft-reconfiguration inbound
+  neighbor 2001:DF2:1900:3::136 prefix-list own-ipv6-ppools out
+  neighbor 2001:DF2:1900:3::137 activate
+  neighbor 2001:DF2:1900:3::137 soft-reconfiguration inbound
+  neighbor 2001:DF2:1900:3::137 prefix-list own-ipv6-ppools out
+  neighbor 2001:DF2:1900:3::138 activate
+  neighbor 2001:DF2:1900:3::138 soft-reconfiguration inbound
+  neighbor 2001:DF2:1900:3::138 prefix-list own-ipv6-ppools out
+  neighbor 2001:DF2:1900:3::139 activate
+  neighbor 2001:DF2:1900:3::139 soft-reconfiguration inbound
+  neighbor 2001:DF2:1900:3::139 prefix-list own-ipv6-ppools out
+  neighbor 2001:DF2:1900:3::200 activate
+  neighbor 2001:DF2:1900:3::200 send-community
+  neighbor 2001:DF2:1900:3::200 soft-reconfiguration inbound
+  neighbor 2001:DF2:1900:3::200 prefix-list own-ipv6-ppools out
+  neighbor 2001:DF2:1900:3::200 route-map EIX-ipv6 out
+  neighbor 2001:DF2:1900:3::240 activate
+  neighbor 2001:DF2:1900:3::240 send-community
+  neighbor 2001:DF2:1900:3::240 soft-reconfiguration inbound
+  neighbor 2001:DF2:1900:3::240 prefix-list own-ipv6-ppools out
+  neighbor 2001:DF2:1900:3::240 route-map EIX-ipv6 out
+  neighbor 2404:A800:8A00:205::1 activate
+  neighbor 2404:A800:8A00:205::1 soft-reconfiguration inbound
+  neighbor 2404:A800:8A00:205::1 prefix-list own-ipv6-ppools out
+  neighbor 2404:A800:8A00:205::1 route-map EIX-ipv6-a2 out
+ exit-address-family
+!
+ip nat log translations syslog
+ip forward-protocol nd
+!
+no ip http server
+ no ip http secure-server
+ip route 10.10.0.0 255.255.240.0 103.78.159.10
+ip route 10.11.11.0 255.255.255.0 103.78.159.169
+ip route 12.12.12.0 255.255.252.0 103.78.159.242
+ip route 40.40.40.0 255.255.255.0 103.78.159.2
+ip route 50.50.0.0 255.255.248.0 103.78.159.238
+ip route 80.80.80.0 255.255.255.0 103.78.159.2
+ip route 90.90.90.0 255.255.255.0 103.78.159.2
+ip route 103.60.138.0 255.255.255.0 182.71.239.41
+ip route 103.78.159.0 255.255.255.0 Null0
+ip route 103.78.159.16 255.255.255.240 103.78.159.2
+ip route 103.78.159.32 255.255.255.240 103.78.159.2
+ip route 103.78.159.48 255.255.255.240 103.78.159.242
+ip route 103.78.159.64 255.255.255.248 103.78.159.238
+ip route 103.78.159.72 255.255.255.252 103.78.159.2
+ip route 103.78.159.76 255.255.255.252 103.78.159.2
+ip route 103.78.159.80 255.255.255.240 103.78.159.2
+ip route 103.78.159.96 255.255.255.248 103.78.159.2
+ip route 103.78.159.104 255.255.255.248 103.78.159.2
+ip route 103.78.159.112 255.255.255.248 103.78.159.2
+ip route 103.78.159.120 255.255.255.248 103.78.159.2
+ip route 103.78.159.128 255.255.255.224 103.78.159.2
+ip route 103.78.159.160 255.255.255.248 103.78.159.2
+ip route 103.78.159.168 255.255.255.252 103.78.159.14
+ip route 103.78.159.172 255.255.255.252 103.78.159.2
+ip route 103.78.159.184 255.255.255.248 103.78.159.2
+ip route 103.78.159.192 255.255.255.224 103.78.159.2
+ip route 103.78.159.208 255.255.255.240 103.78.159.2
+ip route 103.78.159.224 255.255.255.248 103.78.159.2
+ip route 103.78.159.252 255.255.255.252 103.78.159.14
+ip route 103.104.48.0 255.255.255.0 Null0
+ip route 103.104.48.0 255.255.255.128 103.78.159.2
+ip route 103.104.48.128 255.255.255.224 103.78.159.2
+ip route 103.104.48.160 255.255.255.224 103.78.159.2
+ip route 103.104.49.0 255.255.255.0 Null0
+ip route 103.104.49.0 255.255.255.192 103.78.159.2
+ip route 103.104.49.64 255.255.255.192 103.78.159.2
+ip route 103.104.49.96 255.255.255.240 103.78.159.2
+ip route 103.104.49.112 255.255.255.248 103.78.159.246
+ip route 103.104.49.128 255.255.255.224 103.78.159.10
+ip route 103.104.49.192 255.255.255.224 103.78.159.2
+ip route 103.104.49.248 255.255.255.252 103.78.159.246
+ip route 172.16.16.0 255.255.255.0 103.78.159.169
+ip route 172.168.1.0 255.255.255.0 103.78.159.14
+!
+!
+ip prefix-list own-ip seq 5 permit 103.78.159.0/24
+!
+ --More--         ip prefix-list own-ip-a seq 10 permit 103.104.48.0/24
+ip prefix-list own-ip-a seq 20 permit 103.104.49.0/24
+!
+ip prefix-list own-ip-ppools seq 5 permit 103.78.159.0/24
+ip prefix-list own-ip-ppools seq 10 permit 103.104.48.0/24
+ip prefix-list own-ip-ppools seq 15 permit 103.104.49.0/24
+logging trap debugging
+logging 103.78.159.6
+!
+!
+ipv6 prefix-list own-ipv6-ppools seq 10 permit 2404:6DC0::/32
+route-map EIX-ipv6 permit 10
+ match ipv6 address prefix-list own-ipv6-ppools
+ set community 3236069542 additive
+!
+route-map NETFLIX-OUT permit 10
+ match ip address prefix-list own-ip-ppools
+ set metric 0
+!
+route-map NETFLIX-OUT permit 20
+ match ip address prefix-list own-ip-ppools
+ set metric 100
+!
+route-map NETFLIX-OUT deny 30
+ --More--         !
+route-map WANa permit 10
+ match ip address prefix-list own-ip-a
+ set as-path prepend 135876 135876 135876
+!
+route-map EIX permit 10
+ match ip address prefix-list own-ip-ppools
+ set community 3236069542 additive
+!
+route-map WAN permit 10
+ match ip address prefix-list own-ip
+ set as-path prepend 135876 135876 135876
+!
+route-map EIX-ipv6-a2 permit 10
+ match ipv6 address prefix-list own-ipv6-ppools
+!
+snmp-server community jaze RW 1
+!
+!
+!
+control-plane
+!
+!
+!
+ --More--         !
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 5 97
+!
+ntp server 103.78.159.6 version 2
+end
